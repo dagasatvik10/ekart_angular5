@@ -13,9 +13,11 @@ export class SuggestedProductsComponent {
 
   @Input()
   set product(product: Product) {
-    this.ds.getProductsByType(product.type).subscribe(products => {
-      this.suggestedProducts = products.filter(p => p.id !== product.id);
-    });
+    if (product) {
+      this.ds.getProductsByType(product.type).subscribe(products => {
+        this.suggestedProducts = products.filter(p => p.id !== product.id);
+      });
+    }
   }
 
   constructor(private ds: DataService) {}
