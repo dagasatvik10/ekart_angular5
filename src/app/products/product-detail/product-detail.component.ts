@@ -15,7 +15,6 @@ import { Product } from '../product';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product;
-  selectedQuantity: number;
 
   constructor(
     private router: Router,
@@ -25,7 +24,6 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.selectedQuantity = 1;
     this.route.paramMap
       .pipe(
         switchMap((param: ParamMap) =>
@@ -37,8 +35,8 @@ export class ProductDetailComponent implements OnInit {
       });
   }
 
-  addToCart() {
-    this.cs.addToCart(this.product, +this.selectedQuantity);
+  addToCart(qty: number) {
+    this.cs.addToCart(this.product, +qty);
   }
 
   trackByFn(index, item) {
