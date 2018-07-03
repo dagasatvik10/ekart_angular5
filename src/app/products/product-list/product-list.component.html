@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-3" *ngFor="let product of products$ | async">
+    <div class="card">
+      <div class="row">
+        <h5 class="text-center">{{ product.name }}</h5>
+      </div>
+      <div class="row">
+        <a [routerLink]="['/products/detail', product.id]">
+          <img src="./assets/images/{{
+                  product.imgName
+                }}" class="img-responsive">
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center priceTextColor" style="color: #b12704">
+          {{ product.price | indianCurrency }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
