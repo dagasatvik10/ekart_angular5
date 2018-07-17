@@ -57,8 +57,9 @@ export class ProductFormComponent {
   }
 
   onSubmit() {
-    this.ds.addProduct(this.prepareProduct());
-    this.router.navigate(['/home']);
+    this.ds.addProduct(this.prepareProduct()).subscribe(o => {
+      this.router.navigate(['/home']);
+    });
   }
 
   prepareProduct(): Product {

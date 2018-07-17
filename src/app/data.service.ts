@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Product, PRODUCTS } from './products/product';
@@ -9,7 +9,6 @@ import { Product, PRODUCTS } from './products/product';
 @Injectable()
 export class DataService {
   productTypes: string[] = ['electronics', 'fashion', 'sports', 'cycles'];
-  products = PRODUCTS;
   baseUrl = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
@@ -27,9 +26,9 @@ export class DataService {
     );
   }
 
-  addProduct(product: Product) {
-    product.id = this.products.length;
-    this.products.push(product);
+  addProduct(product: Product): Observable<any>{
+    const headers = {headers: new HttpHeaders({'Content-Type': 'application/json'})}
+    return this.http.post<any>(`${this.baseUrl}/products`, product, headers);
   }
 
   getProductsCountByType(type: string): Observable<{count: number, limit: number}> {
