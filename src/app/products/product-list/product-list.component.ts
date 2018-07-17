@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 import { switchMap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, Params } from '@angular/router';
 
 import { DataService } from '../../data.service';
 import { Product } from '../product';
@@ -13,6 +14,8 @@ import { Product } from '../product';
 })
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
+  pageNo: number;
+  private maxPageNo: number;
   type: string;
 
   constructor(
@@ -22,10 +25,32 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.products$ = this.route.paramMap.pipe(
-      switchMap((param: ParamMap) => {
-        return this.ds.getProductsByType(param.get('type'));
-      }),
-    );
+    combineLatest(
+      this.route.params,
+      this.route.queryParams,
+      (param, query) => {
+        this.ds.getProductsCountByType(param.type).subscribe(obj => {
+          this.maxPageNo = Math.ceil(obj.count / obj.limit);
+        });
+        this.pageNo = +(query.page || 1);
+        this.type = param.type;
+        return this.ds.getProductsByType(param.type, +query.page)
+      }
+    ).subscribe(products$ => {
+      this.products$ = products$;
+    });
+    // this.route.paramMap.pipe(
+    //   switchMap((param: ParamMap) => {
+    //     return this.ds.getProductsByType(param.get('type'));
+    //   }),
+    // );
+  }
+
+  previousLinkDisabled(): boolean {
+    return this.pageNo <= 1;
+  }
+
+  nextLinkDisabled(): boolean {
+    return this.pageNo >= this.maxPageNo;
   }
 }

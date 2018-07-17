@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3" *ngFor="let product of products$ | async">
+  <div class="col-md-6" *ngFor="let product of products$ | async">
     <div class="card">
       <div class="row">
         <h5 class="text-center">{{ product.name }}</h5>
@@ -19,3 +19,23 @@
     </div>
   </div>
 </div>
+  <ul class="pager">
+    <li class="previous" [class.disabled]="previousLinkDisabled()"><a 
+      *ngIf="!previousLinkDisabled()"
+      [routerLink]="['/products/type', type]"
+      [queryParams]="{page: pageNo - 1}"
+      >Previous</a>
+      <a 
+      *ngIf="previousLinkDisabled()"
+      >Previous</a>
+    </li>
+    <li class="next" [class.disabled]="nextLinkDisabled()"><a
+      *ngIf="!nextLinkDisabled()"
+      [routerLink]="['/products/type', type]"
+      [queryParams]="{page: pageNo + 1}"
+      >Next</a>
+      <a 
+      *ngIf="nextLinkDisabled()"
+      >Next</a>
+    </li>
+  </ul>
