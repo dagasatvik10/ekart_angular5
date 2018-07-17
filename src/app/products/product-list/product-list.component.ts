@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { switchMap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, Params } from '@angular/router';
@@ -39,11 +38,6 @@ export class ProductListComponent implements OnInit {
     ).subscribe(products$ => {
       this.products$ = products$;
     });
-    // this.route.paramMap.pipe(
-    //   switchMap((param: ParamMap) => {
-    //     return this.ds.getProductsByType(param.get('type'));
-    //   }),
-    // );
   }
 
   previousLinkDisabled(): boolean {

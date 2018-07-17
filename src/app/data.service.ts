@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
@@ -16,13 +15,9 @@ export class DataService {
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/products`);
-    // return of(this.products);
   }
 
   getProductsByType(type: string, page?: number): Observable<Product[]> {
-    // return this.getProducts().pipe(
-    //   map(products => products.filter(p => p.type === type)),
-    // );
     return this.http.get<Product[]>(`${this.baseUrl}/products/${type}?page=${page || 1}`);
   }
 
