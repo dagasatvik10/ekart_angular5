@@ -9,6 +9,7 @@ export interface CartItem {
   type: string;
   price: number;
   descriptionList: string[];
-  imgName: string;
   quantity: number;
+  imgName: string;
+  path?: string;
 }

@@ -20,9 +20,7 @@
 <div class="row rowsCartProduct" *ngFor="let item of cartItems; trackBy: trackByFn">
   <div class="col-md-2">
     <a [routerLink]="['/products/detail', item.id]">
-      <img class="cartProductImgs img-responsive center-block" src="./assets/images/{{
-               item.imgName
-            }}">
+      <img class="cartProductImgs img-responsive center-block" [src]="item.path">
     </a>
   </div>
 

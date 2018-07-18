@@ -9,7 +9,7 @@
     <div class="col-md-4 divSuggestedProducts" *ngFor="let product of suggestedProducts | slice: 0 : 3">
       <a [routerLink]="['/products/detail/', product.id]">
         <figure>
-          <img class="center-block" src="./assets/images/{{ product.imgName }}">
+          <img class="center-block" [src]="product.path">
           <figcaption class="text-center text-info">{{ product.name }}</figcaption>
           <figcaption class="text-center priceTextColor">{{ product.price | indianCurrency }}</figcaption>
         </figure>

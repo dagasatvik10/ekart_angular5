@@ -1,6 +1,6 @@
 <div class="row" id="productDetails">
   <div class="col-md-6">
-    <img *ngIf="product?.imgName" src="./assets/images/{{ product?.imgName }}" class="center-block img-responsive">
+    <img *ngIf="product?.path" [src]="product.path" class="center-block img-responsive">
   </div>
   <div class="col-md-6">
     <div class="row">

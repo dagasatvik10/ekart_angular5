@@ -15,7 +15,7 @@
         <div class="col-md-3" *ngFor="let product of products | productFilter: type | slice: 0: 4">
           <a [routerLink]="['/products/detail', product.id]">
             <figure>
-              <img class="img-responsive" src="./assets/images/{{ product.imgName }}" alt="{{ product.name }}">
+              <img class="img-responsive" [src]="product.path" alt="{{ product.name }}">
               <figcaption class="text-center text-info">{{ product.name}}</figcaption>
               <figcaption class="text-center priceTextColor"> {{ product.price | indianCurrency }}</figcaption>
             </figure>

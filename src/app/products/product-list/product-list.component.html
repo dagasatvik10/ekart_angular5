@@ -6,9 +6,7 @@
       </div>
       <div class="row">
         <a [routerLink]="['/products/detail', product.id]">
-          <img src="./assets/images/{{
-                  product.imgName
-                }}" class="img-responsive">
+          <img [src]="product.path" class="img-responsive">
         </a>
       </div>
       <div class="row">
@@ -19,23 +17,13 @@
     </div>
   </div>
 </div>
-  <ul class="pager">
-    <li class="previous" [class.disabled]="previousLinkDisabled()"><a 
-      *ngIf="!previousLinkDisabled()"
-      [routerLink]="['/products/type', type]"
-      [queryParams]="{page: pageNo - 1}"
-      >Previous</a>
-      <a 
-      *ngIf="previousLinkDisabled()"
-      >Previous</a>
-    </li>
-    <li class="next" [class.disabled]="nextLinkDisabled()"><a
-      *ngIf="!nextLinkDisabled()"
-      [routerLink]="['/products/type', type]"
-      [queryParams]="{page: pageNo + 1}"
-      >Next</a>
-      <a 
-      *ngIf="nextLinkDisabled()"
-      >Next</a>
-    </li>
-  </ul>
+<ul class="pager">
+  <li class="previous" [class.disabled]="previousLinkDisabled()">
+    <a *ngIf="!previousLinkDisabled()" [routerLink]="['/products/type', type]" [queryParams]="{page: pageNo - 1}">Previous</a>
+    <a *ngIf="previousLinkDisabled()">Previous</a>
+  </li>
+  <li class="next" [class.disabled]="nextLinkDisabled()">
+    <a *ngIf="!nextLinkDisabled()" [routerLink]="['/products/type', type]" [queryParams]="{page: pageNo + 1}">Next</a>
+    <a *ngIf="nextLinkDisabled()">Next</a>
+  </li>
+</ul>
