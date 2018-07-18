@@ -1,18 +1,12 @@
 import { Component } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { DataService } from '../../data.service';
 import { Product } from '../product';
 
-@Component({
+@Component({ 
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css'],
@@ -23,11 +17,12 @@ export class ProductFormComponent {
   faTrash = faTrash;
   faPlus = faPlus;
   imgLabel = 'Select Image';
+  imageToUpload: File;
 
   constructor(
     private fb: FormBuilder,
     private ds: DataService,
-    private router: Router,
+    private router: Router
   ) {
     this.productTypes = this.ds.productTypes;
     this.createForm();
@@ -51,14 +46,21 @@ export class ProductFormComponent {
     this.descriptions.removeAt(i);
   }
 
-  onFileChange(e) {
-    this.productForm.patchValue({ imgName: e.target.files[0].name });
+  onFileChange(files: FileList) {
+    this.imageToUpload = files.item(0);
     this.imgLabel = 'Update Image';
   }
 
   onSubmit() {
     this.ds.addProduct(this.prepareProduct()).subscribe(o => {
       this.router.navigate(['/home']);
+    });
+  }
+
+  uploadImage() {
+    this.ds.postImage(this.imageToUpload).subscribe(imgName => {
+      this.productForm.patchValue({ imgName });
+      this.imageToUpload = null;
     });
   }
 

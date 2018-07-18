@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 import { Product } from './products/product';
 
-@Injectable()
+@Injectable() 
 export class DataService {
   productTypes: string[] = ['electronics', 'fashion', 'sports', 'cycles'];
   private baseUrl = 'http://localhost:3000';
@@ -48,6 +48,14 @@ export class DataService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     return this.http.post<any>(`${this.baseUrl}/products`, product, headers);
+  }
+
+  postImage(imageToUpload: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('photo', imageToUpload, imageToUpload.name);
+    return this.http.post<{filename: string}>(`${this.baseUrl}/products/upload`, formData).pipe(
+      map(data => data.filename)
+    );
   }
 
   getProductsCountByType(

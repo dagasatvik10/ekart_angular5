@@ -23,9 +23,10 @@
     </div>
     <div class="form-group">
       <label class="btn btn-default btn-xs">{{ imgLabel }}
-        <input type="file" (change)="onFileChange($event)" hidden>
+        <input type="file" (change)="onFileChange($event.target.files)" hidden>
       </label>
-      <img *ngIf="imgName.value" src="./assets/images/{{ imgName.value }}" class="img-thumbnail selectedImg">
+      <img *ngIf="imgName.value" src="http://localhost:3000/uploads/{{ imgName.value }}" class="img-thumbnail selectedImg">
+      <button type="button" class="btn btn-xs" *ngIf="imageToUpload" (click)="uploadImage()">Upload</button>
     </div>
     <div formArrayName="descriptions">
       <div class="input-group divInputDescription has-feedback" *ngFor="let desc of descriptions.controls; let i=index; let isLast=last"
