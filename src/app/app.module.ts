@@ -1,3 +1,5 @@
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
+
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +18,7 @@ import { ProductsModule } from './products/products.module';
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgHttpLoaderModule,
     HomeModule,
     ProductsModule,
     CartModule,
